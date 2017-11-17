@@ -1,0 +1,26 @@
+version: '2'
+
+services:
+  postgres:
+    image: postgres:9.6.6
+    environment:
+      - POSTGRES_PASSWORD=cuba
+      - POSTGRES_USER=cuba
+      - POSTGRES_DB=sales
+    ports:
+     - "5433:5432"
+    networks:  
+     - sales-network
+  sales-core:
+    image: glebfox/cuba-sample-sales-core
+    networks:
+     - sales-network
+  sales-web:
+    image: glebfox/cuba-sample-sales-web
+    ports:
+     - "8080:8080"
+    networks:
+     - sales-network
+
+networks:
+  sales-network:
